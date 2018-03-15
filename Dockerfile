@@ -32,27 +32,30 @@ RUN pip install plotchecker
 RUN pip install nose
 
 # Install nbgrader
-RUN pip install nbgrader
+#RUN pip install nbgrader
 
 # Install the nbgrader extensions
-RUN nbgrader extension install
+#RUN nbgrader extension install
 
 # Create nbgrader profile and add nbgrader config
-ADD nbgrader_config.py /etc/jupyter/nbgrader_config.py
+#ADD nbgrader_config.py /etc/jupyter/nbgrader_config.py
 
 # Configure grader user
-RUN useradd -m grader
-RUN chown -R grader:grader /home/grader
-USER grader
+#RUN useradd -m grader
+#RUN chown -R grader:grader /home/grader
+#USER grader
 
 # Where the assignments will live (these need to be mounted on runtime)
-WORKDIR /assignments
+#3WORKDIR /assignments
 
-ENTRYPOINT ["tini", "--", "nbgrader"]
-CMD ["--help"]
+#ENTRYPOINT ["tini", "--", "nbgrader"]
+#CMD ["--help"]
 
 #Steal from https://gist.github.com/jhamrick/45f01c1a15572e964e5b
+# and https://github.com/jhamrick/nbgrader-demo/blob/master/Dockerfile
+
 # Install notebook config
+RUN pip install git+git://github.com/jupyter/nbgrader.git
 ADD jupyter_notebook_config.py /home/main/.jupyter/jupyter_notebook_config.py
 
 # Install and enable extensions
