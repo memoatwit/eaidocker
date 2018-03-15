@@ -5,15 +5,13 @@ FROM jupyter/tensorflow-notebook
 
 LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
 
-FROM jupyter/systemuser
+#FROM jupyter/systemuser
 
-# Update pip
-RUN pip install --upgrade pip
 
 # Install psychopg2
-RUN apt-get update
-RUN apt-get -y install libpq-dev
-RUN pip install psycopg2
+#RUN apt-get update
+#RUN apt-get -y install libpq-dev
+#RUN pip install psycopg2
 
 # Install nano
 RUN apt-get -y install nano
@@ -41,3 +39,14 @@ RUN nbgrader extension install
 
 # Create nbgrader profile and add nbgrader config
 ADD nbgrader_config.py /etc/jupyter/nbgrader_config.py
+
+# Configure grader user
+RUN useradd -m grader
+RUN chown -R grader:grader /home/grader
+USER grader
+
+# Where the assignments will live (these need to be mounted on runtime)
+WORKDIR /assignments
+
+ENTRYPOINT ["tini", "--", "nbgrader"]
+CMD ["--help"]
