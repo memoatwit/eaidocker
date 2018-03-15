@@ -14,7 +14,7 @@ LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
 #RUN pip install psycopg2
 
 # Install nano
-RUN apt-get -y install nano
+#RUN apt-get -y install nano
 
 # Install terminado
 RUN pip install terminado
