@@ -50,3 +50,17 @@ WORKDIR /assignments
 
 ENTRYPOINT ["tini", "--", "nbgrader"]
 CMD ["--help"]
+
+#Steal from https://gist.github.com/jhamrick/45f01c1a15572e964e5b
+# Install notebook config
+ADD jupyter_notebook_config.py /home/main/.jupyter/jupyter_notebook_config.py
+
+# Install and enable extensions
+RUN jupyter nbextension install --sys-prefix --py nbgrader
+RUN jupyter nbextension enable --sys-prefix --py nbgrader
+RUN jupyter serverextension enable --sys-prefix --py nbgrader
+
+ENV PYTHONPATH /home/main
+ADD formgrade_extension.py /home/main/formgrade_extension.py
+RUN jupyter serverextension enable --sys-prefix formgrade_extension
+
