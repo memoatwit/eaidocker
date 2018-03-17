@@ -5,9 +5,8 @@ FROM jupyter/tensorflow-notebook
 
 LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
 
+#Outdated. changed for nb5
 #FROM jupyter/systemuser
-
-
 # Install psychopg2
 #RUN apt-get update
 #RUN apt-get -y install libpq-dev
@@ -15,39 +14,28 @@ LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
 
 # Install nano
 #RUN apt-get -y install nano
-
 # Install terminado
-RUN pip install terminado
-
+#RUN pip install terminado
 # Install scikit-learn
-RUN pip install scikit-learn
-
+#RUN pip install scikit-learn
 # Install widgets
-RUN pip install ipywidgets
-
+#RUN pip install ipywidgets
 # Install plotchecker
-RUN pip install plotchecker
-
+#RUN pip install plotchecker
 # Install nose
-RUN pip install nose
-
+#RUN pip install nose
 # Install nbgrader
 #RUN pip install nbgrader
-
 # Install the nbgrader extensions
 #RUN nbgrader extension install
-
 # Create nbgrader profile and add nbgrader config
 #ADD nbgrader_config.py /etc/jupyter/nbgrader_config.py
-
 # Configure grader user
 #RUN useradd -m grader
 #RUN chown -R grader:grader /home/grader
 #USER grader
-
 # Where the assignments will live (these need to be mounted on runtime)
 #3WORKDIR /assignments
-
 #ENTRYPOINT ["tini", "--", "nbgrader"]
 #CMD ["--help"]
 
